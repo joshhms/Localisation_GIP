@@ -71,8 +71,8 @@ class KalmanFilter:
 
         # Adaptive tuning
         self.epsilon = np.matrix('0.0')
-        self.epsilon_max = 9.5
-        self.Q_scale_factor = 3
+        self.epsilon_max = 9.488
+        self.Q_scale_factor = 1.1
         self.count = 0
 
     # -----------------------------
