@@ -14,7 +14,7 @@ class RobotController:
         self.logfilename = 'log.csv'
         self.openfile = None
 
-        # ✅ Added encoder, removed duplicate temp
+       
         self.header = [
             'timestamp',
             'roll_filtered',
@@ -80,7 +80,7 @@ class RobotController:
                     print(received_string)
                     continue
 
-                # ✅ EXPECTED FORMAT NOW:
+               
                 # elapsed, ax, ay, az, gx, gy, gz, temp_c, encoder
                 parts = received_string.split(',')
 
@@ -92,14 +92,14 @@ class RobotController:
                 temp_c = float(parts[7])
                 encoder = int(parts[8])
 
-                # ✅ Pass encoder into filter
+                
                 filtered = myFilter.kalmanloop(
                     data=data,
                     temp_c=temp_c,
                     encoder=encoder
                 )
 
-                # ✅ NO duplicate temp anymore
+                
                 output_row = filtered
 
                 if self.save_state:
