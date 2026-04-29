@@ -75,9 +75,9 @@ class KalmanFilter:
         self.Q_scale_factor = 1.1
         self.count = 0
 
-    # -----------------------------
+    
     # Measurement model
-    # -----------------------------
+    
     def get_z(self):
 
         ax_g = self.AccX / self.accel_scale_factor
@@ -99,9 +99,9 @@ class KalmanFilter:
         self.z[2] = (self.GyroX / self.gyro_scale_factor) - self.roll_rate_offset
         self.z[3] = (self.GyroY / self.gyro_scale_factor) - self.pitch_rate_offset
 
-    # -----------------------------
+    
     # Assign new data
-    # -----------------------------
+    
     def assign_new_sensor_readings(self, data, temp_c, encoder):
 
         self.AccX = data[X_INDEX]
@@ -117,9 +117,9 @@ class KalmanFilter:
 
         self.get_z()
 
-    # -----------------------------
+    
     # Kalman steps
-    # -----------------------------
+    
     def get_prediction(self):
         self.x = (self.F * self.x)
         self.P = (self.F * self.P * self.F.T) + self.Q
@@ -150,9 +150,9 @@ class KalmanFilter:
     def update_yaw(self):
         self.yaw_angle += self.dt * ((self.GyroZ / self.gyro_scale_factor) - self.yaw_rate_offset)
 
-    # -----------------------------
+    
     # Main loop
-    # -----------------------------
+   
     def kalmanloop(self, data, temp_c, encoder):
 
         self.get_prediction()
