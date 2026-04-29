@@ -3,23 +3,19 @@
 #include <Arduino.h>
 #include <Wire.h>
 
-// -----------------------------
 // MPU6050
-// -----------------------------
 #define MPU_ADDR 0x68
 
-// -----------------------------
 // Pin definitions
-// -----------------------------
 #define PIN_LED  25   // Onboard Pico LED
 
 // Rotary encoder pins (changed to avoid I2C conflict)
 #define PIN_A 14
 #define PIN_B 15
 
-// -----------------------------
+
 // Rotary encoder variables
-// -----------------------------
+
 volatile bool rotaryEncoder = false;
 int rotationCounter = 0;
 
@@ -63,22 +59,22 @@ int8_t checkRotaryEncoder() {
   return 0;
 }
 
-// -----------------------------
+
 // Timing
-// -----------------------------
+
 unsigned long start_time_ms = 0;
 unsigned long loop_time_us  = 0;
 
-// -----------------------------
+
 // MPU data
-// -----------------------------
+
 int16_t ax = 0, ay = 0, az = 0;
 int16_t gx = 0, gy = 0, gz = 0;
 int16_t raw_temp = 0;
 
-// -----------------------------
+
 // Wake MPU6050
-// -----------------------------
+
 void mpu_wake() {
   Wire1.beginTransmission(MPU_ADDR);
   Wire1.write(0x6B);
@@ -93,9 +89,9 @@ void mpu_wake() {
   Wire1.endTransmission();
 }
 
-// -----------------------------
+
 // Read raw accel + gyro + temp
-// -----------------------------
+
 void read_raw(int16_t &ax, int16_t &ay, int16_t &az,
               int16_t &gx, int16_t &gy, int16_t &gz,
               int16_t &raw_temp) {
@@ -121,9 +117,8 @@ float temp_celsius(int16_t raw) {
   return raw / 340.0f + 36.53f;
 }
 
-// -----------------------------
 // setup()
-// -----------------------------
+
 void setup() {
   Serial.begin(115200);
   while (!Serial) delay(10);
@@ -158,9 +153,9 @@ void setup() {
   Serial.println("#elapsed_ms,ax,ay,az,gx,gy,gz,temp_c,encoder");
 }
 
-// -----------------------------
+
 // loop()
-// -----------------------------
+
 void loop() {
   // Handle rotary encoder
   if (rotaryEncoder) {
